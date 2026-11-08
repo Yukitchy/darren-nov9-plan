@@ -1,0 +1,62 @@
+{
+ "A": {
+  "card": {
+   "thumb": "img/forum.jpg",
+   "title": "Tokyo-International-Forum_Glass-Building_Outside.jpg",
+   "lic": "CC BY-SA"
+  },
+  "detail": [
+   {
+    "thumb": "img/forum.jpg",
+    "title": "Tokyo-International-Forum_Glass-Building_Outside.jpg",
+    "lic": "CC BY-SA"
+   },
+   {
+    "thumb": "img/animate.jpg",
+    "title": "Animate_Ikebukuro.jpg",
+    "lic": "CC BY-SA"
+   },
+   {
+    "thumb": "img/forum.jpg",
+    "title": "Tokyo-International-Forum_Glass-Building_Outside.jpg",
+    "lic": "CC BY-SA"
+   },
+   {
+    "thumb": "img/animate.jpg",
+    "title": "Animate_Ikebukuro.jpg",
+    "lic": "CC BY-SA"
+   }
+  ],
+  "food": []
+ },
+ "_hero": {
+  "card": {
+   "thumb": "img/forum.jpg",
+   "title": "Tokyo-International-Forum_Glass-Building_Outside.jpg",
+   "lic": "CC BY-SA"
+  },
+  "detail": [
+   {
+    "thumb": "img/forum.jpg",
+    "title": "Tokyo-International-Forum_Glass-Building_Outside.jpg",
+    "lic": "CC BY-SA"
+   },
+   {
+    "thumb": "img/animate.jpg",
+    "title": "Animate_Ikebukuro.jpg",
+    "lic": "CC BY-SA"
+   },
+   {
+    "thumb": "img/forum.jpg",
+    "title": "Tokyo-International-Forum_Glass-Building_Outside.jpg",
+    "lic": "CC BY-SA"
+   },
+   {
+    "thumb": "img/animate.jpg",
+    "title": "Animate_Ikebukuro.jpg",
+    "lic": "CC BY-SA"
+   }
+  ],
+  "food": []
+ }
+}

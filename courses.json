@@ -1,0 +1,127 @@
+[
+ {
+  "id": "A",
+  "name": "MAPPA EXPO, then the Kaoruhana signing",
+  "tag": "Meet 9:00, signing at 16:00, done about 17:30",
+  "why": "MAPPA EXPO takes the morning and the signing has a fixed 16:00 entry. Lunch and a few shops fill the gap, and the whole route is by train with no long walks.",
+  "chips": [],
+  "bars": [
+   [
+    60,
+    105,
+    "Kinshicho to Yurakucho",
+    "w"
+   ],
+   [
+    120,
+    240,
+    "MAPPA EXPO",
+    "w"
+   ],
+   [
+    240,
+    315,
+    "Lunch",
+    "w"
+   ],
+   [
+    315,
+    360,
+    "To Ikebukuro",
+    "w"
+   ],
+   [
+    360,
+    465,
+    "Animate and shops",
+    "w"
+   ],
+   [
+    465,
+    570,
+    "Signing",
+    "w"
+   ]
+  ],
+  "steps": [
+   [
+    "9:00",
+    "Meet at Excelsior Caffé, Kinshicho",
+    "In front of the station. Coffee, then we go."
+   ],
+   [
+    "9:15",
+    "JR Sobu Rapid line to Tokyo Station",
+    "About 10 minutes. Then a 10 minute walk to Tokyo International Forum."
+   ],
+   [
+    "10:00",
+    "MAPPA EXPO 15th Anniversary",
+    "YURAKUCHO MUSEUM, B1F. About two hours."
+   ],
+   [
+    "12:00",
+    "Lunch near Yurakucho",
+    "Plenty of places under the tracks and in the station buildings. We pick one on the day."
+   ],
+   [
+    "13:15",
+    "Yurakucho line to Ikebukuro",
+    "Direct from Yurakucho Station, about 20 minutes."
+   ],
+   [
+    "14:00",
+    "Animate and the shops around it",
+    "Browse before the signing. Anime shops are all within a few minutes of the main store."
+   ],
+   [
+    "15:45",
+    "Gather at Space Galleria, 8F",
+    "Entry is at 16:00. Please be early."
+   ],
+   [
+    "16:00",
+    "Kaoruhana exhibition and Mikami Saka signing",
+    "Last entry 16:30. The exhibition closes at 17:00 on this last day."
+   ],
+   [
+    "17:30",
+    "Done",
+    "Dinner in Ikebukuro if you like, or JR back to Kinshicho."
+   ]
+  ],
+  "stops": [
+   "Excelsior Caffe Kinshicho Station",
+   "Tokyo International Forum",
+   "Animate Ikebukuro Main Store"
+  ],
+  "moves": "Kinshicho → Tokyo: JR Sobu Rapid, about 10 min. Tokyo → Forum: 10 min on foot. Yurakucho → Ikebukuro: Yurakucho line, about 20 min, no change.",
+  "good": "Two fixed times, one in the morning and one at 16:00, with a flexible middle.",
+  "mind": "Timings are estimates. Both venues are crowded on a Monday of a limited run, so we leave early rather than late.",
+  "links": [
+   [
+    "MAPPA EXPO (official)",
+    "https://expo.mappa.co.jp/en"
+   ],
+   [
+    "Kaoruhana exhibition (e+)",
+    "https://eplus.jp/kaoruhana-ex/"
+   ]
+  ],
+  "food": [],
+  "ll": [
+   [
+    35.6969,
+    139.8143
+   ],
+   [
+    35.6767,
+    139.7634
+   ],
+   [
+    35.7305,
+    139.7165
+   ]
+  ]
+ }
+]
