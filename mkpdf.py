@@ -10,16 +10,16 @@ UA = {'User-Agent': 'darren-route-sheet/1.0 (icchan417@gmail.com)'}
 HERE = os.path.dirname(os.path.abspath(__file__))
 CACHE = os.path.join(HERE, '.mapcache'); os.makedirs(CACHE, exist_ok=True)
 
-STOPS = {1: ('Excelsior', 35.6969, 139.8143), 2: ('MAPPA EXPO', 35.6767, 139.7634), 3: ('Lunch', 35.6752, 139.7631),
+STOPS = {1: ('Excelsior', 35.6975, 139.8129), 2: ('MAPPA EXPO', 35.6767, 139.7634), 3: ('Lunch', 35.7295, 139.7124),
          4: ('Animate', 35.7303, 139.7149), 5: ('Signing', 35.7312, 139.7157)}
 STN = {'Kinshicho Stn': (35.69696, 139.81404), 'Tokyo Stn': (35.68124, 139.76712), 'Yurakucho Stn': (35.67480, 139.76300), 'Ikebukuro Stn': (35.72950, 139.71090)}
-HOURS = {1: 'In front of Kinshicho Station', 2: 'Open 10:00-18:00, last entry 17:00', 3: 'Around Yurakucho Station', 4: 'Animate main store', 5: 'Entry 16:00, last entry 16:30, closes 17:00'}
-NAMES = {1: 'Excelsior Caffé, Kinshicho', 2: 'MAPPA EXPO, Tokyo International Forum B1F', 3: 'Lunch near Yurakucho', 4: 'Animate and the shops', 5: 'Signing, Space Galleria 8F'}
+HOURS = {1: 'Arkkit Kinshicho 1F, a short walk from the station', 2: 'Open 10:00-18:00, last entry 17:00', 3: 'Six places to pick from, near Animate', 4: 'Animate main store', 5: 'Entry 16:00, last entry 16:30, closes 17:00'}
+NAMES = {1: 'Excelsior Caffé, Kinshicho', 2: 'MAPPA EXPO, Tokyo International Forum B1F', 3: 'Lunch in Ikebukuro', 4: 'Animate and the shops', 5: 'Signing, Space Galleria 8F'}
 LC = {'J': '#0067c0', 'Y': '#d7c447'}
 LN = {'J': 'JR Sobu Rapid Line', 'Y': 'Yurakucho Line'}
 PHOTOS = [os.path.join(HERE, 'img', f) for f in ('mappa-kv-strip.jpg', 'kaoruhana-ex.jpg', 'mappa-entrance.jpg', 'animate.jpg')]
-BAND = [('9:00', 'Excelsior Caffé, Kinshicho'), ('9:15', 'JR Sobu Rapid Line to Tokyo'), ('10:00', 'MAPPA EXPO'), ('12:00', 'Lunch near Yurakucho'),
-        ('13:15', 'Yurakucho Line to Ikebukuro'), ('14:00', 'Animate and the shops'), ('15:45', 'Signing, Space Galleria 8F'), ('17:30', 'Done, in Ikebukuro')]
+BAND = [('9:00', 'Excelsior Caffé, Kinshicho'), ('9:15', 'JR Sobu Rapid Line to Tokyo'), ('10:00', 'MAPPA EXPO'), ('12:15', 'Yurakucho Line to Ikebukuro'),
+        ('13:00', 'Lunch in Ikebukuro'), ('14:00', 'Animate and the shops'), ('15:45', 'Signing, Space Galleria 8F'), ('17:30', 'Done, in Ikebukuro')]
 
 # ---- map rendering (PIL, OSM tiles, red route + arrows + numbered labelled pins) ----------------
 def get(url, binary=False):
@@ -118,10 +118,10 @@ def render(out, W, H, pins, legs, stations, dots=()):
 S = lambda n: (STOPS[n][1], STOPS[n][2])
 def make_maps():
     k, t, y = STN['Kinshicho Stn'], STN['Tokyo Stn'], STN['Yurakucho Stn']
-    render(f'{CACHE}/map_am.png', 952, 1000, [(1, 'Excelsior', *S(1)), (2, 'MAPPA EXPO', *S(2)), (3, 'Lunch', *S(3))],
+    render(f'{CACHE}/map_am.png', 952, 1000, [(1, 'Excelsior', *S(1)), (2, 'MAPPA EXPO', *S(2))],
            [('train', [k, t]), ('foot', foot(t, S(2)))], [('Tokyo Stn', *t), ('Yurakucho Stn', *y)])
     ik = STN['Ikebukuro Stn']
-    render(f'{CACHE}/map_ike.png', 444, 1000, [(4, 'Animate', *S(4)), (5, 'Signing', *S(5))], [('foot', foot(ik, S(4)))], [('Ikebukuro Stn', *ik)])
+    render(f'{CACHE}/map_ike.png', 444, 1000, [(3, 'Lunch', *S(3)), (4, 'Animate', *S(4)), (5, 'Signing', *S(5))], [('foot', foot(ik, S(4)))], [('Ikebukuro Stn', *ik)])
 
 chip = lambda k: f'<b class="lc" style="background:{LC[k]}">{k}</b>'
 def leg(txt): return f'<li class="leg"><u></u>{txt}</li>'
@@ -132,8 +132,8 @@ def build_html():
     band = ''.join(f'<div class="s{" first" if i == 0 else " last" if i == len(BAND) - 1 else ""}"><b>{t}</b>{x}</div>' for i, (t, x) in enumerate(BAND))
     photos = ''.join(f'<div><img src="{img64(u)}" alt=""></div>' for u in PHOTOS)
     rows = f'<li><i>1</i>{NAMES[1]}<small>{HOURS[1]}</small></li>' + leg(f'{chip("J")}{LN["J"]} to Tokyo, about 10 min, then walk 10 min')
-    rows += f'<li><i>2</i>{NAMES[2]}<small>{HOURS[2]}</small></li>' + leg('walk to lunch')
-    rows += f'<li><i>3</i>{NAMES[3]}<small>{HOURS[3]}</small></li>' + leg(f'{chip("Y")}{LN["Y"]}, Yurakucho to Ikebukuro, about 20 min')
+    rows += f'<li><i>2</i>{NAMES[2]}<small>{HOURS[2]}</small></li>' + leg(f'{chip("Y")}{LN["Y"]}, Yurakucho to Ikebukuro, about 20 min')
+    rows += f'<li><i>3</i>{NAMES[3]}<small>{HOURS[3]}</small></li>' + leg('walk to Animate, 2 to 10 min')
     rows += f'<li><i>4</i>{NAMES[4]}<small>{HOURS[4]}</small></li>' + leg('gather at Space Galleria by 15:45')
     rows += f'<li><i>5</i>{NAMES[5]}<small>{HOURS[5]}</small></li>'
     rows += '<li class="back"><span>After the signing: dinner in Ikebukuro, or the train back to Kinshicho.</span></li>'

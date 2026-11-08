@@ -19,14 +19,55 @@ def nxt(*rows): return '<div class="next"><p class="nl">Next</p>' + ''.join(f'<p
 P = [None,
      (35.6975, 139.8129, 'Excelsior Caffé, Kinshicho Station', 'Excelsior', 'r', '9:00'),
      (35.6767, 139.7634, 'MAPPA EXPO, Tokyo International Forum', 'MAPPA EXPO', 'r', '10:00'),
-     (35.6752, 139.7631, 'Lunch near Yurakucho', 'Lunch', 'l', '12:00'),
+     (35.7295, 139.7124, 'Lunch, pick one of six', '', 'r', '13:00'),
      (35.7303, 139.7149, 'Animate and the shops, Ikebukuro', 'Animate', 'l', '14:00'),
      (35.7312, 139.7157, 'Signing, Animate 8F Space Galleria', 'Signing', 'r', '15:45')]
-LI = -1
-LUNCH_JS = []
+LI = 3
+TH = 'https://thumb.wikimedia.org/wikipedia/commons/thumb/'
+IMG = dict(
+    kikanbo=TH + '8/8c/Very_hot_tsukemen_%28close-up%29.jpg/960px-Very_hot_tsukemen_%28close-up%29.jpg',
+    mutekiya=TH + '8/8a/Ikkousha_tonkotsu_bowl.jpg/960px-Ikkousha_tonkotsu_bowl.jpg',
+    shimizuya=TH + '1/15/Pork_loin_cutlet_set_meal_of_Katsuya.jpg/960px-Pork_loin_cutlet_set_meal_of_Katsuya.jpg',
+    wakataka=TH + '2/27/Conveyor_belt_sushi_at_Mashiro_Sushi.jpg/960px-Conveyor_belt_sushi_at_Mashiro_Sushi.jpg',
+    saffron='https://upload.wikimedia.org/wikipedia/commons/0/09/NANAK_lunch_set.jpg',
+    unatatsu='https://upload.wikimedia.org/wikipedia/commons/b/b6/Unadon_%E3%81%86%E3%81%AA%E4%B8%BC.jpg')
+LUNCH = [
+    ('Kikanbo', 35.7291, 139.7153, 't', 'kikanbo', 'Very hot tsukemen (close-up).jpg by insatiablemunch, CC BY 2.0', 'Spicy ramen', '3.6',
+     'Spicy miso ramen. You choose how hot and how numbing it is, or ask for mild. Counter seats only.',
+     'Open 11:00 to 21:30', 4, 'Kikanbo Ikebukuro', 'https://kikanbo.co.jp/pages/shop'),
+    ('Mutekiya', 35.7269, 139.7117, 'b', 'mutekiya', 'Ikkousha tonkotsu bowl.jpg by Wesoree, CC BY-SA 4.0', 'Tonkotsu ramen', '3.6',
+     'Rich pork-bone ramen with thick roast pork. 17 counter seats, so expect a line. Closes when the soup runs out.',
+     'Open from 10:30', 10, 'Mutekiya Ikebukuro', 'https://tabelog.com/tokyo/A1305/A130501/13003927/'),
+    ('Shimizuya', 35.7319, 139.7144, 'r', 'shimizuya', 'Pork loin cutlet set meal of Katsuya.jpg by 毒島みるく, CC0', 'Pork cutlet', '3.5',
+     'Tonkatsu (breaded pork cutlet) set meals, plus katsudon and curry. On the 2nd floor of a building near the east exit.',
+     'Open 11:00 to 20:00', 3, 'Shimizuya Ikebukuro tonkatsu', 'https://tabelog.com/tokyo/A1305/A130501/13008961/'),
+    ('Wakataka', 35.7295, 139.7156, 'l', 'wakataka', 'Conveyor belt sushi at Mashiro Sushi.jpg by JIP, CC BY-SA 4.0', 'Conveyor sushi', '3.5',
+     'Conveyor-belt sushi that scores higher on Tabelog than the big chains. On Sunshine 60 Street, right by Animate.',
+     'Open 11:30 to 22:00', 4, 'Mawashizushi Wakataka Ikebukuro Sunshine 60', 'https://tabelog.com/tokyo/A1305/A130501/13009868/'),
+    ('Saffron', 35.7294, 139.7165, 'b', 'saffron', 'NANAK lunch set.jpg by OpenCage Systems, CC BY-SA 2.0', 'Indian curry', '3.4',
+     'North Indian curry and naan, if you want a change from Japanese food. Lunch ends at 15:00.',
+     'Lunch 11:00 to 15:00', 4, 'Saffron Ikebukuro', 'https://tabelog.com/tokyo/A1305/A130501/13100839/'),
+    ('Unatatsu', 35.7317, 139.7162, 'r', 'unatatsu', 'Unadon うな丼.jpg by masa from JAPAN, CC BY 2.0', 'Grilled eel', '3.5',
+     'Grilled eel (unagi) on rice. Lunch is 11:30 to 14:00. Closed on Sundays and holidays.',
+     'Lunch 11:30 to 14:00', 2, 'Unatatsu Ikebukuro', 'https://tabelog.com/tokyo/A1305/A130501/13037960/'),
+]
+LUNCH_JS = [[l[1], l[2], l[0], l[3]] for l in LUNCH]
+POPS = []
+def lunch_card(l):
+    name, _, _, _, img, cred, genre, score, what, hours, walk, q, url = l
+    pid = 'pop-' + name.lower()
+    POPS.append(f'<dialog class="pop" id="{pid}" aria-label="{name}"><button type="button" class="pclose" aria-label="Close">✕</button>'
+                f'<img class="pimg" src="{IMG[img]}" alt="Example photo: {genre.lower()}"><div class="pbody"><p class="gn">{genre}</p><h3>{name}</h3>'
+                f'<p class="rt"><span class="st">★ {score}</span> Tabelog</p><p class="pt">{what}</p>'
+                f'<p class="rt">{hours}<br>About {walk} min on foot from Animate, our next stop</p>'
+                f'<p class="pl"><a href="{gm(q)}" target="_blank" rel="noopener">Map ↗</a><a href="{url}" target="_blank" rel="noopener">Details ↗</a></p>'
+                f'<p class="pc">Photo: example of the dish, not the shop. {cred}</p></div></dialog>')
+    return (f'<button type="button" class="tile" data-pop="{pid}"><img src="{IMG[img]}" alt="Example photo: {genre.lower()}" loading="lazy">'
+            f'<span class="cb"><span class="gn">{genre}</span><b>{name}</b></span></button>')
+
 
 TT = [('9:00', 'Excelsior Caffé, Kinshicho'), ('9:15', 'JR Sobu Rapid Line to Tokyo'), ('10:00', 'MAPPA EXPO'),
-      ('12:00', 'Lunch near Yurakucho'), ('13:15', 'Yurakucho Line to Ikebukuro'), ('14:00', 'Animate and the shops'),
+      ('12:15', 'Yurakucho Line to Ikebukuro'), ('13:00', 'Lunch in Ikebukuro, pick one of six'), ('14:00', 'Animate and the shops'),
       ('15:45', 'Signing, Space Galleria 8F'), ('17:30', 'Done, in Ikebukuro')]
 tt = ''.join(f'<tr class="st-plain"><td class="v">{t}</td><td><span class="k">{k}</span></td></tr>' for t, k in TT)
 
@@ -36,7 +77,7 @@ def step(i, h, body):
 
 S = []
 S.append('<article class="step" data-i="0"><p class="no"><i>0</i>The whole day</p><h2>Monday, <span class="l2">9:00 to <em>17:30</em></span></h2>'
-         '<p class="lead">MAPPA EXPO in the morning at Yurakucho, lunch, then Ikebukuro for the Kaoruhana Rin to Saku 5th anniversary exhibition and the Mikami Saka signing. Entry to the signing is at 16:00.</p>'
+         '<p class="lead">MAPPA EXPO in the morning at Yurakucho, then Ikebukuro: lunch, the anime shops, the Kaoruhana Rin to Saku 5th anniversary exhibition and the Mikami Saka signing. Entry to the signing is at 16:00.</p>'
          f'<div class="tt"><p class="cap">The day</p><table>{tt}</table></div>'
          + pts(('Keep in mind', 'Times are approximate. The exhibition closes at 17:00 on its last day and the last entry is 16:30, so we are at Space Galleria before 16:00.'))
          + links(('Open the whole route in Google Maps', 'https://www.google.com/maps/dir/?api=1&origin=Excelsior+Caffe+Kinshicho+Station&destination=Animate+Ikebukuro+Main+Store&waypoints=Tokyo+International+Forum&travelmode=transit'))
@@ -53,10 +94,12 @@ S.append(step(2, '<em>MAPPA EXPO</em> 15th Anniversary',
               + nums(('Open', '10:00 to 18:00', 'Last entry 17:00'))
               + '<p class="note" style="font-size:13px;color:var(--mute)">The goods-set ticket does not include goods at the venue. They are picked up later, so there is nothing to carry out.</p>'
               + links(('MAPPA EXPO official site', 'https://expo.mappa.co.jp/en'), ('Tokyo International Forum on Google Maps', gm('Tokyo International Forum')))
-              + nxt('Walk to lunch')))
-S.append(step(3, '<em>Lunch</em> near Yurakucho',
-              '<p class="lead">There are many places under the tracks and in the station buildings. We pick one together on the day.</p>'
               + nxt(ln('Y') + ' from Yurakucho Station to Ikebukuro, about 20 min, no change')))
+S.append(step(3, '<em>Lunch</em>, pick one of six',
+              '<p class="lead">Six places in Ikebukuro, all within a few minutes of Animate: two noodle shops and four other kinds of food. Tap a tile for details. Tell me which one you feel like and we go.</p>'
+              '<div class="cafes tiles">' + ''.join(lunch_card(l) for l in LUNCH) + '</div>'
+              '<p class="asof">Scores are from Tabelog, October 2026. Tabelog scores run lower than Google, and 3.5 is already very good.</p>'
+              + nxt('Walk to Animate, 2 to 10 min')))
 S.append(step(4, '<em>Animate</em> Ikebukuro',
               ph('img/animate.jpg', 'The Animate Ikebukuro main store building')
               + '<p class="lead">Animate is Japan\'s biggest anime shop chain. The main store is a short walk from Ikebukuro Station, with more anime shops on the streets around it. We look around before the signing.</p>'
@@ -69,7 +112,7 @@ S.append(step(5, 'The <em>Kaoruhana</em> signing',
               + '<p class="note" style="font-size:13px;color:var(--mute)">I carry the tickets for both places. Please bring your passport in case staff ask for ID.</p>'
               + links(('Exhibition information (e+)', 'https://eplus.jp/kaoruhana-ex/'), ('Animate on Google Maps', gm('Animate Ikebukuro Main Store')))
               + nxt('Done around 17:30. Dinner in Ikebukuro if you like, or the train back to Kinshicho.')))
-credit_items = ['Excelsior Caffé storefront: Google Maps contributor photo','Tokyo-International-Forum Glass-Building Outside.jpg, CC BY-SA', 'Animate Ikebukuro.jpg, CC BY-SA',
+credit_items = [l[5] for l in LUNCH] + ['Excelsior Caffé storefront: Google Maps contributor photo','Tokyo-International-Forum Glass-Building Outside.jpg, CC BY-SA', 'Animate Ikebukuro.jpg, CC BY-SA',
                 'MAPPA EXPO visuals: official site and press images. Attack on Titan exhibit © Isayama Hajime / Kodansha / Attack on Titan The Final Season Production Committee',
                 'Kaoruhana visuals: © Mikami Saka / Kodansha / Kaoruhana Rin to Saku Production Committee']
 credit = ('<footer class="credit"><p class="note" style="margin:0 0 10px">Times are approximate and can move on the day. Message Yuuki if you want to change anything.</p><details><summary>Credits</summary><ul>'
@@ -91,5 +134,7 @@ js = ('<script>const LI=%d,LUNCH=%s,DAYS=%s,P=%s,GEO=[[35.7345,139.7158,"Ikebuku
       % (LI, json.dumps(LUNCH_JS), json.dumps(['The whole day'] + [p[5] for p in P[1:]]), json.dumps([None] + [[p[0], p[1], p[2], p[3], p[4], 0] for p in P[1:]])))
 js += open('map.js').read() + '</script>'
 dev = '<script src="devbar.js"></script>'
-open('index.html', 'w').write(head + intro + ''.join(S) + credit + '</main></div>' + js + dev + '</body></html>')
+popjs = ("<script>document.querySelectorAll('.tile').forEach(function(t){t.addEventListener('click',function(){document.getElementById(t.dataset.pop).showModal()})});"
+         "document.querySelectorAll('dialog.pop').forEach(function(d){d.addEventListener('click',function(e){if(e.target===d)d.close()});d.querySelector('.pclose').addEventListener('click',function(){d.close()})});</script>")
+open('index.html', 'w').write(head + intro + ''.join(S) + credit + '</main></div>' + ''.join(POPS) + js + popjs + dev + '</body></html>')
 print('index.html written')
