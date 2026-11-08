@@ -17,7 +17,7 @@ def nxt(*rows): return '<div class="next"><p class="nl">Next</p>' + ''.join(f'<p
 
 # lat, lon, full name, short label, label side, time
 P = [None,
-     (35.6969, 139.8143, 'Excelsior Caffé, Kinshicho Station', 'Excelsior', 'r', '9:00'),
+     (35.6975, 139.8129, 'Excelsior Caffé, Kinshicho Station', 'Excelsior', 'r', '9:00'),
      (35.6767, 139.7634, 'MAPPA EXPO, Tokyo International Forum', 'MAPPA EXPO', 'r', '10:00'),
      (35.6752, 139.7631, 'Lunch near Yurakucho', 'Lunch', 'l', '12:00'),
      (35.7303, 139.7149, 'Animate and the shops, Ikebukuro', 'Animate', 'l', '14:00'),
@@ -42,7 +42,8 @@ S.append('<article class="step" data-i="0"><p class="no"><i>0</i>The whole day</
          + links(('Open the whole route in Google Maps', 'https://www.google.com/maps/dir/?api=1&origin=Excelsior+Caffe+Kinshicho+Station&destination=Animate+Ikebukuro+Main+Store&waypoints=Tokyo+International+Forum&travelmode=transit'))
          + '</article>')
 S.append(step(1, 'We meet at <em>Excelsior Caffé</em>',
-              '<p class="lead">Excelsior Caffé is right in front of Kinshicho Station, near your Airbnb. I am there from 9:00. A coffee first, then we go.</p>'
+              ph('img/excelsior.jpg', 'The Excelsior Caffé storefront, Arkkit Kinshicho')
+              + '<p class="lead">Excelsior Caffé is on the first floor of Arkkit Kinshicho, a short walk from Kinshicho Station and near your Airbnb. I am there from 9:00. A coffee first, then we go.</p>'
               + nums(('Time', '9:00', 'Monday, November 9'), ('Finish', '17:30', 'Ikebukuro'))
               + links(('Excelsior Caffé on Google Maps', gm('Excelsior Caffe Kinshicho Station')))
               + nxt(f'{ln("J")} to Tokyo, about 10 min, then 10 min on foot')))
@@ -68,7 +69,7 @@ S.append(step(5, 'The <em>Kaoruhana</em> signing',
               + '<p class="note" style="font-size:13px;color:var(--mute)">I carry the tickets for both places. Please bring your passport in case staff ask for ID.</p>'
               + links(('Exhibition information (e+)', 'https://eplus.jp/kaoruhana-ex/'), ('Animate on Google Maps', gm('Animate Ikebukuro Main Store')))
               + nxt('Done around 17:30. Dinner in Ikebukuro if you like, or the train back to Kinshicho.')))
-credit_items = ['Tokyo-International-Forum Glass-Building Outside.jpg, CC BY-SA', 'Animate Ikebukuro.jpg, CC BY-SA',
+credit_items = ['Excelsior Caffé storefront: Google Maps contributor photo','Tokyo-International-Forum Glass-Building Outside.jpg, CC BY-SA', 'Animate Ikebukuro.jpg, CC BY-SA',
                 'MAPPA EXPO visuals: official site and press images. Attack on Titan exhibit © Isayama Hajime / Kodansha / Attack on Titan The Final Season Production Committee',
                 'Kaoruhana visuals: © Mikami Saka / Kodansha / Kaoruhana Rin to Saku Production Committee']
 credit = ('<footer class="credit"><p class="note" style="margin:0 0 10px">Times are approximate and can move on the day. Message Yuuki if you want to change anything.</p><details><summary>Credits</summary><ul>'
